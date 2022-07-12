@@ -10,7 +10,6 @@ export class FormController {
         try {
             const form = await formService.createForm(req.body);
             return res.send(form)
-
         } catch (e) {
             console.log(e)
         }
@@ -29,12 +28,25 @@ export class FormController {
 
 
     async getFormByIdOrAllForms(req: Request, res: Response) {
-        const id = +req.params.id;
-        const forms = await formService.getFormByIdOrAllForm(id);
-        return res.json(forms);
+        try {
+            const id = +req.params.id;
+            const forms = await formService.getFormByIdOrAllForm(id);
+            return res.json(forms);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
-    
+    async createFormData(req: Request, res: Response) {
+        try {
+            const formData = await formService.createDataForm(req.body);
+            return res.json(formData);
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
 
 }

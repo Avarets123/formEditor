@@ -1,10 +1,10 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import {} from 'json-rpc-2.0';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 @Module({
-  imports: [],
+  imports: [HttpModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { FormDataEntity } from "./formdata.entity";
 
 export enum FormType {
     Input = 'input',
@@ -24,6 +25,9 @@ export class FormEntity {
 
     @CreateDateColumn()
     created: Date;
+
+    @OneToMany(() => FormDataEntity, formData => formData.formId)
+    dataForm: number[]
 
 }
 

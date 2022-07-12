@@ -1,38 +1,72 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.css';
+import { IResForm } from './interfaces/form.res.interface';
+import { reqToServer } from './utils/request';
 
 function App(): JSX.Element {
 
+  // const [idForm, setIdForm] = useState<string>();
+  const [form, setForm] = useState<IResForm | null >(null);
 
-  const onSendData = (e: any) => {
+
+  const onSendData = async (e: any) => {
     e.preventDefault();
     const target = e.target;
 
-    console.log(target.select.value);
+    
+    const data = {
+        formId: form?.form_uid,
+      //@ts-ignore
+        data: target[form?.name].value
+    }
+
+    const res = await reqToServer('filling', '', data);
+
+    console.log(res);
+    target.reset();
+
+
 
 
 
   }
+
+  const onSearchForm = async (e: any) => {
+    e.preventDefault();
+    const target = e.target;
+
+    const res = await reqToServer('get', target.id.value);
+    setForm(res);
+    console.log(res)
+    target.reset();
+  }
+
 
 
 
   return (
     <>
       <h1>Формы</h1>
-      <form onSubmit={onSendData}>
-      <label htmlFor="textarea"> desc</label>
-        <input type="text" name='name' id='name' />
-        
-              <label htmlFor="textarea"> desc</label>
-
-        <textarea name="textarea" id='textarea'  placeholder='textarea' />
-        <select name="select" id='select'>
-          <option >пункт 1</option>
-          <option >пункт 2</option>
-        </select>
-
-        <button type="submit">Отправить</button>
+      <form onSubmit={onSearchForm} >
+      <input className='search-input' name='id' type="text" placeholder='введите id формы для отображания' />
+      <button className='search-btn'>Найти</button>
       </form>
+
+      {form ?
+        <form onSubmit={onSendData}>
+        <label style={{marginBottom: '0.7rem', display: 'inline-block'}}>{form.description}</label>
+
+          {form.type === 'input' ? <input type={'text'} name={form.name}  placeholder={form.name} /> :
+          form.type === 'textarea' ? <textarea name={form.name} placeholder={form.name} /> :
+            <select name={form.name} >
+              <option > {form.name}</option>
+            </select>
+        }
+        <button type="submit">Отправить</button>
+
+        </form>
+
+        : null}
 
     </>
   );

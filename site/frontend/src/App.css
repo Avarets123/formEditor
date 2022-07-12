@@ -39,3 +39,21 @@ button {
   color: aqua;
   font-size: 14px;
 }
+
+.search-input {
+  height: 4rem;
+  font-size: 20px;
+  text-align: center;
+  border: 5px solid rgb(54, 138, 138);
+  margin-bottom: 0.5rem;
+}
+
+.search-btn {
+  margin-bottom: 5rem;
+  background: rgb(158, 69, 69);
+}
+
+.search-btn:hover {
+  cursor: pointer;
+  background: rgb(60, 17, 17);
+}
