@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { DeleteResult, Repository } from "typeorm";
 import { MyAppDataSource } from "../app";
 import { FormEntity } from "../entities/form.entity";
 import { ICreateForm } from "../interfaces/create.user.interface";
@@ -7,7 +7,7 @@ import { ICreateForm } from "../interfaces/create.user.interface";
 export class FormService {
 
 
-    formRepository(): Repository<FormEntity> {
+    private formRepository(): Repository<FormEntity> {
         return MyAppDataSource.getRepository(FormEntity)
     }
 
@@ -17,6 +17,11 @@ export class FormService {
         Object.assign(newForm, createForm); 
 
         return await this.formRepository().save(newForm);
+    }
+
+
+    async deleteForm(id: number): Promise<DeleteResult> {
+        return await this.formRepository().delete({form_uid: id})
     }
 
 

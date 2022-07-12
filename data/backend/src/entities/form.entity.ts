@@ -10,7 +10,7 @@ export enum FormType {
 export class FormEntity {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    form_uid: number;
 
     @Column()
     name: string;

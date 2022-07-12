@@ -4,7 +4,8 @@ import { FormController } from "../controllers/form.controller";
 const routes = Router();
 const formController = new FormController();
 
-routes.post('/api/form/create', formController.createForm)
+routes.post('/form/create', formController.createForm);
+routes.get('/form/delete/:id', formController.deleteForm);
 
 
 export { routes };

@@ -17,7 +17,7 @@ export class App {
         this.app.use(cors())
         this.app.use(express.urlencoded({ extended: false }))
         this.app.use(express.json())
-        this.app.use(routes)
+        this.app.use('/api', routes)
 
     }
 
