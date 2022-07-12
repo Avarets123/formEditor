@@ -1,11 +1,13 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { FormController } from "../controllers/form.controller";
 
 const routes = Router();
 const formController = new FormController();
 
-routes.post('/form/create', formController.createForm);
-routes.get('/form/delete/:id', formController.deleteForm);
+routes.post('/create', formController.createForm);
+routes.get('/delete/:id', formController.deleteForm);
+routes.get('/getAll', formController.getFormByIdOrAllForms)
+routes.get('/get/:id', formController.getFormByIdOrAllForms)
 
 
 export { routes };

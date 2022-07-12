@@ -27,4 +27,14 @@ export class FormController {
         }
     }
 
+
+    async getFormByIdOrAllForms(req: Request, res: Response) {
+        const id = +req.params.id;
+        const forms = await formService.getFormByIdOrAllForm(id);
+        return res.json(forms);
+    }
+
+
+    
+
 }

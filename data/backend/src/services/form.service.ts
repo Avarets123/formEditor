@@ -24,5 +24,15 @@ export class FormService {
         return await this.formRepository().delete({form_uid: id})
     }
 
+    async getFormByIdOrAllForm(id?: number): Promise<FormEntity | FormEntity[]> {
+
+        if (id) {
+            return await this.formRepository().findOneBy({ form_uid: id });
+        }
+
+        return await this.formRepository().find();
+
+    }
+
 
 }
