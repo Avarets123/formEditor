@@ -1,0 +1,43 @@
+version: '3.5'
+
+services:
+  db_app:
+   container_name: db_app
+   image: postgres:14.3-alpine
+   restart: unless-stopped
+   environment:
+    - POSTGRES_USER=${POSTGRES_USER}
+    - POSTGRES_DB=${POSTGRES_DB}
+    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+   ports:
+    - ${POSTGRES_PORT}:${POSTGRES_PORT}
+   volumes:
+    #  - db_data:/var/lib/postgresql/data
+     - ./store:/var/lib/postgresql/data
+
+
+  data_backend:
+    container_name: data_backend
+    build: ./data/backend
+    command: npm run start
+    restart: unless-stopped
+    environment:
+      - POSTGRES_HOST=db_app
+    depends_on: 
+      - db_app
+    ports:
+      - ${DATA_BACKEND_PORT}:${DATA_BACKEND_PORT}
+
+  data_frontend:
+    container_name: data_frontend
+    build: ./data/frontend
+    command: serve -s build -l 3000
+    restart: unless-stopped
+    depends_on:
+      - data_backend
+      - db_app
+    ports:
+      - ${DATA_FRONTEND_PORT}:${DATA_FRONTEND_PORT}
+
+# volumes:
+#   db_data:
