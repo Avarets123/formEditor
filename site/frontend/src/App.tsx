@@ -56,7 +56,7 @@ function App(): JSX.Element {
           }
           <button type="submit">Отправить</button>
 
-          <p style={{marginTop: '2rem'}}>{JSON.stringify(form)}</p>
+          <p style={{marginTop: '2rem'}}>Данные формы: <br />{JSON.stringify(form)}</p>
         </form>
 
         : null}

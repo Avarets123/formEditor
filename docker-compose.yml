@@ -12,8 +12,8 @@ services:
    ports:
     - ${POSTGRES_PORT}:${POSTGRES_PORT}
    volumes:
-    #  - db_data:/var/lib/postgresql/data
-     - ./store:/var/lib/postgresql/data
+     - db_data:/var/lib/postgresql/data
+    #  - ./store:/var/lib/postgresql/data
 
 
   data_backend:
@@ -63,5 +63,5 @@ services:
       - data_frontend
     ports:
       - ${SITE_BACKEND_PORT}:${SITE_BACKEND_PORT}
-# volumes:
-#   db_data:
+volumes:
+  db_data:
