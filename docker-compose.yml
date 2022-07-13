@@ -31,7 +31,7 @@ services:
   data_frontend:
     container_name: data_frontend
     build: ./data/frontend
-    command: serve -s build -l 3000
+    command: serve -s build -l ${DATA_FRONTEND_PORT}
     restart: unless-stopped
     depends_on:
       - data_backend
@@ -39,5 +39,29 @@ services:
     ports:
       - ${DATA_FRONTEND_PORT}:${DATA_FRONTEND_PORT}
 
+  site_frontend:
+    container_name: site_frontend
+    build: ./site/frontend
+    command: serve -s build -l ${SITE_FRONTEND_PORT}
+    restart: unless-stopped
+    depends_on:
+      - db_app
+      - data_backend
+      - data_frontend
+      - site_backend
+    ports:
+      - ${SITE_FRONTEND_PORT}:${SITE_FRONTEND_PORT}
+    
+  site_backend:
+    container_name: site_backend
+    build: ./site/backend
+    command: npm run start
+    restart: unless-stopped
+    depends_on:
+      - db_app
+      - data_backend
+      - data_frontend
+    ports:
+      - ${SITE_BACKEND_PORT}:${SITE_BACKEND_PORT}
 # volumes:
 #   db_data:

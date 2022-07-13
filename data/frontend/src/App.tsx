@@ -48,6 +48,7 @@ function App(): JSX.Element {
 
   return (
     <>
+      <a href="http://localhost:3001">ссылка на страницу форм</a>
       <h1>Редактор форм</h1>
 
       {message ? <p style={{ color: 'red', fontSize: '24px', textAlign: 'center' }}>{message}</p> : null}
